@@ -1,12 +1,22 @@
-	// ----- basic.textinput ------------------------------------------------------
-$(document).delegate('input[data-widget="basic.textinput"]', {
-	'update': function (event, response) {
-		// DEBUG: console.log("[basic.textinput] update '" + this.id + "':", response); 
-		$(this).val(response);
-	},
+/**
+* Displays a time-Counter when a gad has changed
+*
+* @param unique id for this widget
+* @param a gad/item
+*/
+{% macro timecounter(id, gad, mode) %}
 
-	'change': function (event) {
-		// DEBUG: console.log("[basic.textinput] change '" + this.id + "':", $(this).val()); 
-		io.write($(this).attr('data-item'), $(this).val());
-	}
-});
+	<script type="text/javascript">
+		function ZeitAnzeigen (objectID, mode, value) {
+			var absSekunden = value
+			if (absSekunden == 'NaN') {absSekunden = 1};
+			var relSekunden = absSekunden % 60;			
+			var absMinuten = Math.abs(Math.round((absSekunden - 30) / 60));
+			var anzSekunden = "" + ((relSekunden > 9) ? relSekunden : "0" + relSekunden);
+			var anzMinuten = "" + ((absMinuten > 9) ? absMinuten : "0" + absMinuten);
+			return(anzMinuten + ":" + anzSekunden);
+		};
+	</script>
+	<span id="{{ uid(page, id) }}" data-widget="basic.timecounter" data-item="{{ gad }}" data="{{ mode }}">-:-</span>
+	
+{% endmacro %}
