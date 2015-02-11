@@ -1,0 +1,13 @@
+/**
+* display a picture with url from a gad
+*
+* @param unique id for this widget
+* @param a gad/item
+* @param url prefix  (optional)
+* @param url matching RegExp  (optional, for selecting only parts of the given URL)
+*/
+{% macro img(id, gad_image, gad_prefix, gad_regex) %}
+
+	<img id="{{ uid(page, id) }}" data-widget="basic.img" data-item="{{ gad_image }}" src="{{ gad_prefix }}" alt="{{ gad_regex }}" style="visibility:hidden; width:1px">
+
+{% endmacro %}
