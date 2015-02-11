@@ -1,0 +1,16 @@
+/**
+* execute a http command via a button with ajax
+* 
+*/
+{% macro httpcmd(id, gad, pic, url, type) %}
+	<a id="{{ uid(page, id) }}" data-widget="basic.httpcmd" data-item="{{gad}}" data-val="{{ url|default('') }}" class="ui-{{ type|default('mini') }}" data-role="button" data-inline="true" 
+		{% if not pic %}
+			data-iconpos="nopic">
+		{% elseif pic|slice(-4, 4) != '.png' %}
+			data-icon="{{ pic }}" data-iconpos="notext">
+		{% else %}
+			data-iconpos="center"><img class="icon" src="{{ pic }}">
+		{% endif %}	
+	</a>
+
+{% endmacro %} 
