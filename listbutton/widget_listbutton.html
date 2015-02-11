@@ -1,0 +1,22 @@
+/**
+* display a button as a simple symbol
+*
+* @param unique id for this widget
+* @param a gad/item for short press
+* @param a gad/item for long press
+* @param picture
+* @param Value if pressed, default = 1
+*/
+{% macro lbutton(id, gad, pic, val) %} 
+   /** <span class="switch">*/
+				<a id="{{ uid(page, id) }}" data-widget="basic.lbutton" data-item="{{ gad }}" data-val="{{ val|default('1') }}" class="ui-{{ type|default('mini') }}"
+					{% if not pic %}
+						data-iconpos="nopic">
+					{% elseif pic|slice(-4, 4) != '.png' %}
+						data-icon="{{ pic }}" data-iconpos="notext">
+					{% else %}
+						data-iconpos="center"><img class="icon" src="{{ pic }}">
+					{% endif %}	
+				</a>
+    /**</span> */
+{% endmacro %} 
