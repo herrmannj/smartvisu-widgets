@@ -1,22 +1,12 @@
 /**
-* Displays a time-Counter when a gad has changed
+* Displays a textinput
 *
 * @param unique id for this widget
 * @param a gad/item
 */
-{% macro timecounter(id, gad, mode) %}
+{% macro textinput(id, gad, label) %}
 
-	<script type="text/javascript">
-		function ZeitAnzeigen (objectID, mode, value) {
-			var absSekunden = value
-			if (absSekunden == 'NaN') {absSekunden = 1};
-			var relSekunden = absSekunden % 60;			
-			var absMinuten = Math.abs(Math.round((absSekunden - 30) / 60));
-			var anzSekunden = "" + ((relSekunden > 9) ? relSekunden : "0" + relSekunden);
-			var anzMinuten = "" + ((absMinuten > 9) ? absMinuten : "0" + absMinuten);
-			return(anzMinuten + ":" + anzSekunden);
-		};
-	</script>
-	<span id="{{ uid(page, id) }}" data-widget="basic.timecounter" data-item="{{ gad }}" data="{{ mode }}">-:-</span>
+	<label>{{ label }}</label>
+	<input type="text" id="{{ uid(page, id) }}" data-widget="basic.textinput" data-item="{{ gad }}" />
 	
 {% endmacro %}
