@@ -1,0 +1,35 @@
+/**
+* Displays a dropdown
+*
+* @param unique id for this widget
+* @param a gad/item
+* @param txt0 selection1 [optional]
+* @param txt1 selection1 [optional]
+* @param txt2 selection2 [optional]
+* @param txt3 selection3 [optional]
+* @param txt4 selection4 [optional]
+* @param txt5 selection5 [optional]
+* @param txt6 selection6 [optional]
+* @param txt7 selection7 [optional]
+* @param txt8 selection8 [optional]
+* @param txt9 selection9 [optional]
+*/
+{% macro selectmenu(id, gad, label, txt0, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9) %}
+
+<div class="ui-field-contain">
+	<label for="{{ uid(page, id) }}" class="select">{{ label }}</label>
+	<select name ="{{ uid(page, id) }}" id="{{ uid(page, id) }}" data-widget="basic.selectmenu" data-item="{{ gad }}" data-mini="true" data-native-menu="false"  />
+		{% if txt0 != '' %}	<option value="{{ txt0 }}">{{ txt0 }}</option>{% endif %}
+		{% if txt1 != '' %}	<option value="{{ txt1 }}">{{ txt1 }}</option>{% endif %}
+		{% if txt2 != '' %}	<option value="{{ txt2 }}">{{ txt2 }}</option>{% endif %}
+		{% if txt3 != '' %}	<option value="{{ txt3 }}">{{ txt3 }}</option>{% endif %}
+		{% if txt4 != '' %}	<option value="{{ txt4 }}">{{ txt4 }}</option>{% endif %}
+		{% if txt5 != '' %}	<option value="{{ txt5 }}">{{ txt5 }}</option>{% endif %}
+		{% if txt6 != '' %}	<option value="{{ txt6 }}">{{ txt6 }}</option>{% endif %}
+		{% if txt7 != '' %}	<option value="{{ txt7 }}">{{ txt7 }}</option>{% endif %}
+		{% if txt8 != '' %}	<option value="{{ txt8 }}">{{ txt8 }}</option>{% endif %}
+		{% if txt9 != '' %}	<option value="{{ txt9 }}">{{ txt9 }}</option>{% endif %}
+	</select>
+</div>
+	
+{% endmacro %}
