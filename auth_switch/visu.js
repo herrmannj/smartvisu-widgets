@@ -15,4 +15,14 @@ $(document).delegate('span[data-widget="basic.auth_switch"]', {
 
 // ----- basic.auth_flip ---------------------------------------------------------
 // ---------------------------------------------------------------------------------
-// code is missing---------------------------------------------------------------------------------
+$(document).delegate('select[data-widget="basic.auth_flip"]', {
+	'update': function (event, response) {
+		$(this).val(response > 0 ? 'on' : 'off').slider('refresh');
+	},
+	
+	'change': function (event) {
+ 		// öffnen des popups bei clicken des flips und ausführung der eingabefunktion
+ 		$('#' + this.id + '-popup').popup( "open" );
+	}
+
+});
