@@ -12,17 +12,10 @@ SmartVISU usage example:
 Fronthem config example:
 
       {
-      
       "EG_blind_uzsu" : {
-      
          "reading" : "uzsu",
-         
          "type" : "item",
-         
          "converter" : "UZSU",
-         
          "device" : "Roll_EG",
-         
          "set" : "uzsu"
-         
       },
