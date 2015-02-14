@@ -19,3 +19,7 @@ Fronthem config example:
          "device" : "Roll_EG",
          "set" : "uzsu"
       },
+
+You need a fhem notify to trigger the uzsu_execute function:
+   
+     define UZSU notify .*:uzsu:.* { UZSU_execute($NAME, $EVTPART1) }
