@@ -4,6 +4,10 @@ For UZSU converter and additional needed code, look here: https://github.com/her
 
 especially here: https://github.com/herrmannj/fronthem/blob/master/FHEM/99_fronthemUtils.pm
 
+SmartVISU usage example:
+
+      {{ visu.uzsu_icon('UZSU', 'Roll_EG_uzsu', '', '', '', '', 'num') }}
+
 Fronthem config example:
 
       {
