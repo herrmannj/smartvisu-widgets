@@ -6,6 +6,7 @@ especially here: https://github.com/herrmannj/fronthem/blob/master/FHEM/99_front
 
 SmartVISU usage example:
 
+      {% import "widget_uzsu.html" as visu %}
       {{ visu.uzsu_icon('UZSU', 'Roll_EG_uzsu', '', '', '', '', 'num') }}
 
 Fronthem config example:
