@@ -1,1 +1,1 @@
-Link zum squeezebox-widget: http://www.yasni.info/ext.php?url=http%3A%2F%2Fknx-user-forum.de%2Fsmartvisu%2F28145-widget-time_slider-fuer-squeezebox-abspielgeraete-widget.html&name=Axel+Otterst%C3%A4tter&showads=1&lc=de-de&lg=de&rg=de&rip=de
+Link zum squeezebox-widget: http://knx-user-forum.de/smartvisu/28145-widget-time_slider-fuer-squeezebox-abspielgeraete-widget.html
