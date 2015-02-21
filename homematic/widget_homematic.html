@@ -77,6 +77,7 @@
 */
 {% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity) %}
 	{% import "basic.html" as basic %}
+	{% import "icon.html" as icon %}
 	<div id="{{ uid(page, id) }}" data-widget="device.rtr" data-step="{{ step|default(0.5) }}"
 		class="rtr">
 		<div class="actual">
@@ -84,7 +85,7 @@
 			{{ basic.symbol(id~'windowopen', gad_window, '', icon1~'fts_window_2w_open.png','open') }} 
 			{{ basic.symbol(id~'windowclose', gad_window, '', icon0~'fts_window_2w.png','closed') }}
 			&nbsp;{{ basic.float(id~'actual', gad_actual, 'Â°' ) }}
-			{{ basic.shifter(id~'battery', '', gad_battery, 'icon.battery', '2.2', '3') }}
+			{{ icon.battery(id~'battery', '', gad_battery, '2.2', '3') }}
 			</div>
 			
 			{% if gad_humidity %}<div style="font-size:0.8em">Luftfeuchte:&nbsp;{{ basic.value(id~'humidity', gad_humidity) }}%</div>{% endif %}
