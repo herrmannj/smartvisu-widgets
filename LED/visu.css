@@ -1,0 +1,21 @@
+
+.LED {
+  width: 10px;
+  height: 10px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background: #444444;
+}
+.LED-green {
+  background: #009000;    
+}
+.LED-red {
+  background: #900000;    
+}
+.LED-blue {
+  background: #000090;    
+}
+.LED-yellow {
+  background: #EAFF00;    
+}
