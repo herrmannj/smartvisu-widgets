@@ -1,2 +1,2 @@
 # smartvisu-widgets
-provides a collection a powerful widgets by various authors
+provides a collection of powerful widgets by various authors
