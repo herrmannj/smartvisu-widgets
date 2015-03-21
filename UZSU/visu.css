@@ -1,0 +1,10 @@
+/**
+ * Anpassungen für den Chrome Browser in Bezug auf die Breite des
+ * Zeiteingabenfeldes. Hier stellt dieser zusätzliche Elemente dar,
+ * die die Breite extrem verringern. Also Lösung wird bei customerFormat = 0
+ * die Breite von 40 auf 70 px erhöht (oder nach Geschmack)   
+ */
+
+html[data-useragent*='Chrome'] .uzsuTimeInput{
+	width:70px !important;
+}
