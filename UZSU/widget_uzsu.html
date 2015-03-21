@@ -1,0 +1,38 @@
+/**
+* Widget for usage of uzsu plugin
+* (c) Michael Würtenberger 2014, 2015
+*
+* v2.0
+*
+* läuft zusammen mit dem visu.js ab v1.6
+*
+* @param unique id for this widget
+* @param a gad/item
+* @param headline for popup (optional), default UZSZ
+* @param designType for popup design (optional), default = '0', 
+*												 expert mode = '1'  (value, time, rrule direct input)
+*												 mixed mode = '2' features of '0' design of 1
+* @param pic on (optional), default = clock
+* @param pic off (optional), default = clock
+* @param valueType (optional), default = bool, supported types are 'bool', 'num', 'text', 'list'
+* @param textSelectList (optional), default = ['On','Off'] for type = 'bool', any textlist for type = 'list'
+*/
+
+{% macro uzsu_icon(id, gad_uzsu, gad_headline, gad_designType, pic_on, pic_off, gad_valueType, gad_textSelectList) %}
+
+
+	<span 
+		id="{{ uid(page, id) }}" 
+		data-widget="uzsu.uzsu_icon" 
+		data-item="{{ gad_uzsu }}" 
+		data-headline="{{ gad_headline|default('UZSU') }}" 
+		data-designType="{{ gad_designType | default('0') }}"
+        data-pic-on="{{ pic_on|default(icon1~'time_clock.png') }}" 
+        data-pic-off="{{ pic_off|default(icon0~'time_clock.png') }}"
+        data-valueType="{{ gad_valueType|default('bool') }}"
+        data-textSelectList="{{ implode(gad_textSelectList|default(['On','Off'])) }}"
+        class="switch"><a><img class="icon" src="{{ pic_off|default(icon0~'time_clock.png') }}" /></a>
+    </span>
+	
+{% endmacro %}
+
