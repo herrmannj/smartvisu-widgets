@@ -8,6 +8,8 @@ SmartVISU usage example:
 
       {% import "widget_uzsu.html" as visu %}
       {{ visu.uzsu_icon('UZSU', 'Roll_EG_uzsu', '', '', '', '', 'num') }}
+      
+      supported types are 'bool', 'num', 'text', 'list'
 
 Fronthem config example:
 
