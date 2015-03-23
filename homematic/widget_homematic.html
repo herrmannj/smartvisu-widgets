@@ -102,7 +102,7 @@
 			<div class="temp">
 			{{ basic.symbol(id~'windowopen', gad_window, '', icon1~'fts_window_2w_open.png','open') }} 
 			{{ basic.symbol(id~'windowclose', gad_window, '', icon0~'fts_window_2w.png','closed') }}
-			&nbsp;{{ basic.float(id~'actual', gad_actual, 'Â°' ) }}
+			&nbsp;{{ basic.float(id~'actual', gad_actual, '°' ) }}
 			{{ icon.battery(id~'battery', '', gad_battery, '2.2', '3') }}
 			</div>
 			
@@ -117,7 +117,7 @@
 		{% if gad_set %}
 			<div class="set">
 				<a data-role="button" data-icon="minus" data-inline="true" data-iconpos="notext" class="ui-mini"></a>
-				<div class="temp">{{ basic.float(id~'set', gad_set, 'Â°' ) }}</div>
+				<div class="temp">{{ basic.float(id~'set', gad_set, '°' ) }}</div>
 				<a data-role="button" data-icon="plus" data-inline="true" data-iconpos="notext" class="ui-mini"></a>
 			</div>
 		{% endif %}
@@ -137,7 +137,7 @@
 {% endmacro %}
 
 /**
-* Homematic HM-TC, HM-CC Wand- und Heizkörperthermostat Timer
+* Homematic HM-TC, HM-CC Wand- und Heizk�rperthermostat Timer
 *
 * @param unique id for this widget
 * @param name of the rtr
@@ -214,7 +214,7 @@
 * @param step between two values (optional, default 5)
 * @param the mode: 'half' blade turns from -1 to +1, or 'full' blade turns from 0 to +1 (optional, default 'half')
 *
-* @info inspired by JÃ¶rg Gutowski
+* @info inspired by Jörg Gutowski
 */
 {% macro shutter(id, txt, gad_move, gad_stop, gad_pos, gad_shift, gad_angle, gad_saved, min, max, step, mode) %}
 	{% import "basic.html" as basic %}
