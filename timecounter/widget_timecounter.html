@@ -12,11 +12,14 @@
 			if (absSekunden == 'NaN') {absSekunden = 1};
 			var relSekunden = absSekunden % 60;			
 			var absMinuten = Math.abs(Math.round((absSekunden - 30) / 60));
+			var relMinuten = absMinuten % 60;
+			var absStunden = Math.abs(Math.round((absMinuten - 30) / 60));
 			var anzSekunden = "" + ((relSekunden > 9) ? relSekunden : "0" + relSekunden);
-			var anzMinuten = "" + ((absMinuten > 9) ? absMinuten : "0" + absMinuten);
-			return(anzMinuten + ":" + anzSekunden);
+			var anzMinuten = "" + ((relMinuten > 9) ? relMinuten : "0" + relMinuten);
+			var anzStunden = "" + ((absStunden > 9) ? absStunden : "0" + absStunden);
+			return(anzStunden + ":" + anzMinuten + ":" + anzSekunden);
 		};
 	</script>
-	<span id="{{ uid(page, id) }}" data-widget="basic.timecounter" data-item="{{ gad }}" data="{{ mode }}">-:-</span>
+	<span id="{{ uid(page, id) }}" data-widget="basic.timecounter" data-item="{{ gad }}" data="{{ mode }}">-:-:-</span>
 	
 {% endmacro %}
