@@ -19,6 +19,7 @@
 * @param the maximum value for open (optional, default 255)
 * @param step between two values (optional, default 5)
 *
+* @info inspired by Frank Berlenz
 */
 {% macro hmbl(id, txt, gad_move, gad_stop, gad_pos, gad_shift, gad_angle, min, max, step) %}
 	{% import "basic.html" as basic %}
@@ -57,23 +58,40 @@
 	</div>
 {% endmacro %}
 
+
 /**
-* Homematic HM-TC Wandthermostat und HM-CC Heizkörperventil
+* Standard dimmer with switching and dimming function
 *
 * @param unique id for this widget
-* @param Text for display in the middle of the widget (i use "mode")
-* @param gad_actual a gad/item for the actual temperature
-* @param gad_set a gad/item for the set temperature
-* @param gad_controlmode a gad/item for setting auto / manual
-* @param gad_daytemp a gad/item for daytemp reading (currently unused)
-* @param gad_nighttemp a gad/item for nighttemp reading (currently unused)
-* @param gad_window a gad/item for an external window open sensor (additionally paired to the HM-TC for automation)
-* @param gad_battery a gad/item for battery level of "mother"-device
-* @param gad_state a gad/item for the current state of the actor (if paired to a switch for floor heating)
-* @param gad_text a gad/item for a text (i use it for the boost-time reading), (optional)
+* @param name of the dimmer
+* @param a gad/item for switching
+* @param a gad/item for dimming
+* @param the minimum value if the slider is moved to total left (optional, default 0)
+* @param the maximum value if the slider is moved to total right (optional, default 255)
+* @param step between two values (optional, default 5)
+*/
+{% macro dimmer(id, txt, gad_switch, gad_value, min, max, step) %}
+	{% import "basic.html" as basic %}
+	<div class="dimmer">
+		{{ basic.switch(id~'switch', gad_switch, icon1~'light_light.png', icon0~'light_light.png') }}
+		<p>{{ txt|e }}</p>
+		{{ basic.slider(id~'slider', gad_value, min, max, step) }}
+	</div>
+{% endmacro %}
+
+/**
+* Homematic HM-TC Wandthermostat
+*
+* @param unique id for this widget
+* @param name of the rtr
+* @param a gad/item for the actual temperature
+* @param a gad/item for the set temperature
+* @param a gad/item for auto / manual
+* @param a gad/item for boost
+* @param a gad/item for battery
+* @param a gad/item for the current state of the actor
+* @param a gad/item for a text (for boost-time), (optional)
 * @param step for plus/minus buttons (optional, default 0.5)
-* @param gad_valve for HM-CC RT valve position (optional, use only for CC-RT)
-* @param gad_humidity for HM-TC humidity Sensor (optional, use only for TC)
 */
 {% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity) %}
 	{% import "basic.html" as basic %}
@@ -104,7 +122,7 @@
 			</div>
 		{% endif %}
 
-		<div class="control" style="width: 250px;">
+		<div class="control">
 			<table align="center" cellpadding="0">
 				<tr>
 					<td>{{ basic.switch(id~'manauto', gad_controlmode, icon1~'sani_heating_automatic.png', icon0~'sani_heating_manual.png', 'auto', 'manual') }}</td>
@@ -132,12 +150,13 @@
 * @param a gad/item for the P1_5_tempListThu
 * @param a gad/item for the P1_6_tempListFri
 */
-{% macro hmtctimer(id, txt, gad_prog, gad_p1_sat, gad_p1_sun, gad_p1_mon, gad_p1_tue, gad_p1_wed, gad_p1_thu, gad_p1_fri, gad_init, gad_save, gad_restore) %}
+{% macro hmtctimer(id, txt, gad_prog, gad_p1_sat, gad_p1_sun, gad_p1_mon, gad_p1_tue, gad_p1_wed, gad_p1_thu, gad_p1_fri, gad_init, gad_save, gad_restore, gad_p2_sat, gad_p2_sun, gad_p2_mon, gad_p2_tue, gad_p2_wed, gad_p2_thu, gad_p2_fri, gad_p3_sat, gad_p3_sun, gad_p3_mon, gad_p3_tue, gad_p3_wed, gad_p3_thu, gad_p3_fri) %}
 	{% import "basic.html" as basic %}
+	{% import "basic2.html" as basic2 %}
 	<div id="{{ uid(page, id) }}" style="font-size:0.8em">
 		<table width="100%"  style="text-align:left">		
 		<tr><td width="80px">Programm:</td>
-			<td style="float:left width:50%">{% if gad_prog %}{{ basic.selectmenu(id~'prog', gad_prog, '', 'prog1', 'prog2', 'prog3') }}{% endif %}</td>
+			<td style="float:left width:50%">{% if gad_prog %}{{ basic2.selectmenu(id~'prog', gad_prog, '', 'prog1', 'prog2', 'prog3') }}{% endif %}</td>
 			<td style="width:50% float:right">
 			<span data-role="controlgroup" data-type="horizontal" style="float:right;"> 
 				{% if gad_init %}{{ basic.button(id~'init', gad_init, ' init ', '' ) }}{% endif %}
@@ -145,12 +164,89 @@
 				{% if gad_restore %}{{ basic.button(id~'restore', gad_restore, 'restore', '') }}{% endif %}
 			</span>
 		</td></tr></table>
-		{{ basic.textinput(id~'p1_mon', gad_p1_mon, 'Montag:') }}
-		{{ basic.textinput(id~'p1_tue', gad_p1_tue, 'Dienstag:') }}
-		{{ basic.textinput(id~'p1_wed', gad_p1_wed, 'Mittwoch:') }}
-		{{ basic.textinput(id~'p1_thu', gad_p1_thu, 'Donnerstag:') }}
-		{{ basic.textinput(id~'p1_fri', gad_p1_fri, 'Freitag:') }}
-		{{ basic.textinput(id~'p1_sat', gad_p1_sat, 'Samstag:') }}
-		{{ basic.textinput(id~'p1_sun', gad_p1_sun, 'Sonntag:') }}
+		{% if gad_prog %}{{ basic2.pager('pager123', gad_prog, 'prog1') }}{% endif %}
+		<div id="timerpages" style="position:relative">
+			<div id="prog1" style="visibility:visible; position:absolute; top:0; width:100%">	
+				{{ basic2.textinput(id~'p1_mon', gad_p1_mon, 'Montag:') }}
+				{{ basic2.textinput(id~'p1_tue', gad_p1_tue, 'Dienstag:') }}
+				{{ basic2.textinput(id~'p1_wed', gad_p1_wed, 'Mittwoch:') }}
+				{{ basic2.textinput(id~'p1_thu', gad_p1_thu, 'Donnerstag:') }}
+				{{ basic2.textinput(id~'p1_fri', gad_p1_fri, 'Freitag:') }}
+				{{ basic2.textinput(id~'p1_sat', gad_p1_sat, 'Samstag:') }}
+				{{ basic2.textinput(id~'p1_sun', gad_p1_sun, 'Sonntag:') }}
+			</div>	
+			<div id="prog2" style="visibility:hidden; position:absolute; top:0; width:100%">
+				{{ basic2.textinput(id~'p2_mon', gad_p2_mon, 'Montag:') }}
+				{{ basic2.textinput(id~'p2_tue', gad_p2_tue, 'Dienstag:') }}
+				{{ basic2.textinput(id~'p2_wed', gad_p2_wed, 'Mittwoch:') }}
+				{{ basic2.textinput(id~'p2_thu', gad_p2_thu, 'Donnerstag:') }}
+				{{ basic2.textinput(id~'p2_fri', gad_p2_fri, 'Freitag:') }}
+				{{ basic2.textinput(id~'p2_sat', gad_p2_sat, 'Samstag:') }}
+				{{ basic2.textinput(id~'p2_sun', gad_p2_sun, 'Sonntag:') }}
+			</div>	
+			<div id="prog3" style="visibility:hidden; position:absolute; top:0; width:100%">	
+				{{ basic2.textinput(id~'p3_mon', gad_p3_mon, 'Montag:') }}
+				{{ basic2.textinput(id~'p3_tue', gad_p3_tue, 'Dienstag:') }}
+				{{ basic2.textinput(id~'p3_wed', gad_p3_wed, 'Mittwoch:') }}
+				{{ basic2.textinput(id~'p3_thu', gad_p3_thu, 'Donnerstag:') }}
+				{{ basic2.textinput(id~'p3_fri', gad_p3_fri, 'Freitag:') }}
+				{{ basic2.textinput(id~'p3_sat', gad_p3_sat, 'Samstag:') }}
+				{{ basic2.textinput(id~'p3_sun', gad_p3_sun, 'Sonntag:') }}
+			</div>	
+		</div>
 	</div>
+{% endmacro %}
+
+
+/**
+* Standard shutter
+*
+* @param unique id for this widget
+* @param name of the shutter
+* @param a gad/item for the up- and down- movement
+* @param a gad/item for stopping the movement (optional)
+* @param a gad/item for the actual absolute position of the blinds
+* @param a gad/item for increase- and decreace- of the blade (optional, for future use)
+* @param a gad/item for the actual absolute angle of the blade (optional)
+* @param a gad/item for some saved positions (optional)
+* @param the minimum value for close (optional, default 0)
+* @param the maximum value for open (optional, default 255)
+* @param step between two values (optional, default 5)
+* @param the mode: 'half' blade turns from -1 to +1, or 'full' blade turns from 0 to +1 (optional, default 'half')
+*
+* @info inspired by JÃ¶rg Gutowski
+*/
+{% macro shutter(id, txt, gad_move, gad_stop, gad_pos, gad_shift, gad_angle, gad_saved, min, max, step, mode) %}
+	{% import "basic.html" as basic %}
+	{% set uid = uid(page, id) %}
+
+	<div class="blind">
+		<table align="center" cellpadding="0">
+			<tr>
+				<td valign="top">
+					<div class="set">{{ basic.button(id~'up', gad_move, '', 'arrow-u', 'off') }}</div>
+				</td>
+				<td rowspan="3" align="center" class="pos">
+					{{ basic.shutter(id, gad_pos, gad_angle, min, max, step, mode) }}</td>
+				<td valign="top">
+					{% if gad_saved %}
+						<div>{{ basic.button(id~'saved1', gad_saved, 'Pos1', 'grid', 0) }} </div>{% endif %}</td>
+			</tr>
+			<tr>
+				<td valign="center">
+					{% if gad_stop %}
+						<div class="set">{{ basic.button(id~'stop', gad_stop, '', 'delete', 'stop') }}</div> {% endif %}</td>
+				<td valign="center">{{ txt }}</td>
+			</tr>
+			<tr>
+				<td valign="bottom">
+					<div class="set">{{ basic.button(id~'down', gad_move, '', 'arrow-d', 'on') }}</div>
+				</td>
+				<td valign="bottom">
+					{% if gad_saved %}
+						<div>{{ basic.button(id~'saved2', gad_saved, 'Pos2', 'grid', 1) }} </div>{% endif %}</td>
+			</tr>
+		</table>
+	</div>
+
 {% endmacro %}
