@@ -1,0 +1,48 @@
+/**
+* Displays a flip-switch
+* Unlike the original flip, this one accepts configurable input values instead of 1 and 0
+*
+* @param unique id for this widget
+* @param a gad/item
+* @param text for the 'on' state (optional, default 'On')
+* @param text for the 'off' state (optional, default 'Off')
+* @param value that will be mapped to 'on'
+* @param value that will be mapped to 'off'
+*/
+{% macro flip(id, gad, txt_on, txt_off, on_value, off_value) %}
+	<select id="{{ uid(page, id) }}" data-widget="basic_extra.flip" data-item="{{ gad }}"
+		data-role="slider" data-value-on="{{ on_value }}" data-value-off="{{ off_value }}">
+		<option value="off">{{ txt_off|default('Off') }}</option>
+		<option value="on">{{ txt_on|default('On') }}</option>
+	</select>
+
+{% endmacro %}
+
+
+/**
+* Displays a multi-state button with a popup
+*
+* @param unique id for this widget
+* @param a gad/item
+* @param array of possible values
+* @param array of pictures used for values
+*/
+{% macro multistate(id, gad, vals, pics) %}
+    {% import "basic.html" as basic %}
+    
+    <a id="{{ uid(page, id) }}" data-widget="basic_extra.multistate" data-item="{{ gad }}" data-rel="popup" href="#{{id~_popup}}"
+        {% for i in 1..vals|length %}
+            data-val-{{i}}="{{vals[i-1]}}" data-pic-{{i}}="{{pics[i-1]}}"
+        {% endfor %}
+        class="ui-{{ type|default('mini') }}" data-role="button" data-inline="true" data-iconpos="center">
+        <img class="icon" src="{{ pics[0] }}">
+    </a>
+    
+    <div id="{{id~_popup}}" data-role="popup">
+        <div>
+            {% for i in 1..vals|length %}
+                {{ basic.button(id~_popup_button_~vals[i-1], gad, '', pics[i-1], vals[i-1]) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
