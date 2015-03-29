@@ -13,7 +13,7 @@
 * @param a gad/item firmware Version
 *
 */
-{% macro sys(id, gad_name, gad_version, gad_wlan24, gad_wlan5, gad_wlanguest, gad_gastaktiv) %}
+{% macro sys(id, gad_name, gad_version, gad_wlan24, gad_wlan5, gad_wlanguest, gad_guesttime) %}
 	{% import "basic.html" as basic %}
 	{% set uid = uid(page, id) %}
 
@@ -24,7 +24,7 @@
 			<tr><td>WLAN:&nbsp;</td></tr>
 			<tr><td>2.4 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan24', gad_wlan24) }}</td></tr>	
 			<tr><td>5.0 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan5', gad_wlan5) }}</td></tr>	
-			<tr><td>Gast (aktiv:&nbsp; {{ basic.value(id~'gastakt', gad_gastaktiv) }}):&nbsp;</td><td>{{ basic.flip(id~'wlanguest', gad_wlanguest) }}</td></tr>
+			<tr><td>Gast ({{ basic.value(id~'guesttime', gad_guesttime) }}min):&nbsp;</td><td>{{ basic.flip(id~'wlanguest', gad_wlanguest) }}</td></tr>
 		</table>
 	</div>
 {% endmacro %}
