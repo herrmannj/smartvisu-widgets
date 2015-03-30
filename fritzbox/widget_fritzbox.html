@@ -13,18 +13,18 @@
 * @param a gad/item firmware Version
 *
 */
-{% macro sys(id, gad_name, gad_version, gad_wlan24, gad_wlan5, gad_wlanguest, gad_gastaktiv) %}
+{% macro sys(id, gad_name, gad_version, gad_wlan24, gad_wlan5, gad_wlanguest, gad_guesttime) %}
 	{% import "basic.html" as basic %}
 	{% set uid = uid(page, id) %}
 
 	<div>
 		<table style="text-align:left" width="100%">
-			<tr><td>Modell:&nbsp;</td><td>{{ basic.value(id~'name', gad_name) }}</td></tr>
-			<tr><td>Firmware:&nbsp;</td><td>{{ basic.value(id~'version', gad_version) }}</td></tr>
+			{% if gad_name %}<tr><td>Modell:&nbsp;</td><td>{{ basic.value(id~'name', gad_name) }}</td></tr>{% endif %}
+			{% if gad_version %}<tr><td>Firmware:&nbsp;</td><td>{{ basic.value(id~'version', gad_version) }}</td></tr>{% endif %}
 			<tr><td>WLAN:&nbsp;</td></tr>
-			<tr><td>2.4 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan24', gad_wlan24) }}</td></tr>	
-			<tr><td>5.0 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan5', gad_wlan5) }}</td></tr>	
-			<tr><td>Gast (aktiv:&nbsp; {{ basic.value(id~'gastakt', gad_gastaktiv) }}):&nbsp;</td><td>{{ basic.flip(id~'wlanguest', gad_wlanguest) }}</td></tr>
+			{% if gad_wlan24 %}<tr><td>2.4 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan24', gad_wlan24) }}</td></tr>{% endif %}
+			{% if gad_wlan5 %}<tr><td>5.0 GHz:&nbsp;</td><td>{{ basic.flip(id~'wlan5', gad_wlan5) }}</td></tr>{% endif %}
+			<tr><td>Gast ({{ basic.value(id~'guesttime', gad_guesttime) }}min):&nbsp;</td><td>{{ basic.flip(id~'wlanguest', gad_wlanguest) }}</td></tr>
 		</table>
 	</div>
 {% endmacro %}
