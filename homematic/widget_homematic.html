@@ -92,8 +92,9 @@
 * @param a gad/item for the current state of the actor
 * @param a gad/item for a text (for boost-time), (optional)
 * @param step for plus/minus buttons (optional, default 0.5)
+* @param show_auto_man flag to show/hide control for auto / manual
 */
-{% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity) %}
+{% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity, show_auto_man) %}
 	{% import "basic.html" as basic %}
 	{% import "icon.html" as icon %}
 	<div id="{{ uid(page, id) }}" data-widget="device.hmtc" data-step="{{ step|default(0.5) }}"
@@ -125,7 +126,9 @@
 		<div class="control">
 			<table align="center" cellpadding="0">
 				<tr>
-					<td>{{ basic.switch(id~'manauto', gad_controlmode, icon1~'sani_heating_automatic.png', icon0~'sani_heating_manual.png', 'auto', 'manual') }}</td>
+					{% if show_auto_man|default(true) %}
+						<td>{{ basic.switch(id~'manauto', gad_controlmode, icon1~'sani_heating_automatic.png', icon0~'sani_heating_manual.png', 'auto', 'manual') }}</td>
+					{% endif %}
 					<td>{{ basic.switch(id~'boost', gad_controlmode, icon1~'sani_heating_boost.png', icon0~'sani_heating_boost.png', 'boost', 'auto') }}</td>
 					<td>{{ basic.switch(id~'night', gad_set, icon1~'scene_night.png', icon0~'scene_night.png', '17', '21') }}</td>
 					<td>{{ basic.switch(id~'day', gad_set, icon1~'scene_day.png', icon0~'scene_day.png', '21', '17') }}</td>
