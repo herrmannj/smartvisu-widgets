@@ -1,0 +1,40 @@
+{% macro temp_hum(id, gad_temp, gad_hum) %}
+  {% import "basic.html" as basic %}
+  
+      <div style="position: relative;">
+        <div style="position: relative;font-size: 35px;right: 15px;"><img style="vertical-align:middle;position:relative;top:-5px;left:5px" src="icons/ws/temp_temperature.png" width="50px"/>{{ basic.float(id~'temp', gad_temp, '°C') }}</div>
+        <svg width="100px" height="5px" style="position: relative;top: -5px">
+          <line x1="0" y1="0" x2="100" y2="0" style="stroke:rgb(255,255,255);stroke-width:3" />
+        </svg>
+        <div style="position: relative;font-size: 28px;left: 5px;">{{ basic.value(id~'hum', gad_hum, '%') }}<img style="vertical-align:middle;position:relative;top:-3px;left:5px" src="icons/ws/weather_humidity.png" width="40px"/></div>
+      </div>
+{% endmacro %}
+
+{% macro electricMeter(id, gad_power, gad_counter, gad_euroPerHour, gad_energy, gad_energyYesterday) %}
+  {% import "basic.html" as basic %}
+  <div>
+    <div style="font-size: 26px;margin:10px;">
+      <img style="position:relative;top:6px" height="30px" src="{{icon0user~"camera-flash-512px.svg"}}"/>
+      <span style="margin-left:5px">
+        {{ basic.value(id~'_power', gad_power, ' W') }} 
+        {% if gad_euroPerHour %}
+          <span style="font-size: 14px;">({{basic.value(id~'_costs', gad_euroPerHour, ' €/h')}})</span>
+        {% endif %}
+      </span>
+    </div>
+    <svg width="200px" height="5px" style="position: relative;top: -8px;left: 10px;">
+      <line x1="0" y1="0" x2="180" y2="0" style="stroke:rgb(255,255,255);stroke-width:3" />
+    </svg>
+    <div style="width: 300px;margin: 0 auto;text-align: left;">
+      <img style="float:left;margin-right: 5px;margin-left:15px" height="45px" src="{{icon0~"measure_power_meter.svg"}}"/>
+      <div style="font-size:20px">
+        Zählerstand: {{ basic.value(id~'_counter', gad_counter, ' kWh') }}
+      </div>
+      {% if gad_euroPerHour %}
+      <div>
+        Heute: {{ basic.value(id~'_enery', gad_energy, ' kWh') }} (Gestern: {{ basic.value(id~'_enery_yday', gad_energyYesterday, ' kWh') }})
+      </div>
+    {% endif %}
+    </div>        
+  </div>
+{% endmacro %}
