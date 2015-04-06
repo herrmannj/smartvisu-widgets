@@ -26,13 +26,16 @@
       <line x1="0" y1="0" x2="180" y2="0" style="stroke:rgb(255,255,255);stroke-width:3" />
     </svg>
     <div style="width: 300px;margin: 0 auto;text-align: left;">
-      <img style="float:left;margin-right: 5px;margin-left:15px" height="45px" src="{{icon0~"measure_power_meter.svg"}}"/>
+      <img style="float:left;margin-right: 5px;margin-left:15px;margin-top:2px;" height="45px" src="{{icon0~"measure_power_meter.svg"}}"/>
       <div style="font-size:20px">
         Zählerstand: {{ basic.value(id~'_counter', gad_counter, ' kWh') }}
       </div>
-      {% if gad_euroPerHour %}
+      {% if gad_energy %}
       <div>
-        Heute: {{ basic.value(id~'_enery', gad_energy, ' kWh') }} (Gestern: {{ basic.value(id~'_enery_yday', gad_energyYesterday, ' kWh') }})
+        Heute: {{ basic.value(id~'_enery', gad_energy, ' kWh') }} 
+        {% if gad_energyYesterday %}
+          (Gestern: {{ basic.value(id~'_enery_yday', gad_energyYesterday, ' kWh') }})
+        {% endif %}
       </div>
     {% endif %}
     </div>        
