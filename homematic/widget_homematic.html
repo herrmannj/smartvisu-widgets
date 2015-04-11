@@ -96,7 +96,7 @@
 {% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity) %}
 	{% import "basic.html" as basic %}
 	{% import "icon.html" as icon %}
-	<div id="{{ uid(page, id) }}" data-widget="device.rtr" data-step="{{ step|default(0.5) }}"
+	<div id="{{ uid(page, id) }}" data-widget="device.hmtc" data-step="{{ step|default(0.5) }}"
 		class="rtr">
 		<div class="actual">
 			<div class="temp">
