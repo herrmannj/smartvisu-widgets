@@ -1,9 +1,9 @@
 This is a complete replacement for the original plot.widgets.
 
-#Example for chart.period:
- {% extends "rooms.html" %}
- {% import "widget_chart.html" as chart %}
- {% block content %}
+##Example for chart.period:
+    {% extends "rooms.html" %}
+    {% import "widget_chart.html" as chart %}
+    {% block content %}
  
     <div class="block">
       <div class="set-2" data-role="collapsible-set" data-theme="c" data-content-theme="a" data-mini="true">
@@ -47,7 +47,7 @@ This is a complete replacement for the original plot.widgets.
     {% endblock %}
  
  
-#A chart with three series: 
+##A chart with three series: 
     {{ chart.period("HeatingTemperaturesPlot",
                     ["hcs.data.Heating.BurnerTemperatureChart","hcs.data.Heating.WaterTemperatureChart","hcs.data.Heating.OutsideTemperatureChart"],
                     "avg",
