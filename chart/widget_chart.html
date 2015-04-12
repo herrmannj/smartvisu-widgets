@@ -1,0 +1,133 @@
+<!----------------------------------------------------->
+<!-- P E R I O D                                     -->
+<!----------------------------------------------------->
+/**
+* A chart for a period
+*
+* Parameters:
+*  id:             unique id for this widget
+*  gads:           a single GAD or an array of GADs [ item1 , item2 ]
+*  modes:          mode/s: 'avg', 'sum', 'min', 'max'
+*  tmin:           the start time (x-axis): '1h', '2h'... (duration-format)
+*  tmax:           the end time   (x-axis): '1h', '2h'... (duration-format) or 'now'
+*  ymin:           the minimum y-axis value (optional)
+*  ymax:           the maximum y-axis value (optional)
+*  step            the step between two time-points (optional, only for 'offline'-driver)
+*  labels:         label/s for each series (optional)
+*  colors:         color/s for each series e. g. '#f00' for red (optional)
+*  types:          type/s for each series: 'line', 'stair', 'spline', 'area', 'areaspline', 'column' (optional, default 'line')
+*  axes:           titles for the x and y axes ['X-Text', 'Y-Text'] (optional)
+*  zoom:           minimum time while zooming in sec (duration-format) (optional) or 'disabled'
+*  interval:       Update interval in seconds or 'OnChange' to get new data as soon as the log in FHEM changes
+*  chartOptions:   options for the chart(optional)
+*  class:          class for the chart div (optional)
+*
+*  Duration format: s (second), i (minute), h (hour), d (day), w (week), m (month, 30 days), y (year, 365 days)
+*/
+
+{% macro period(id, gads, modes, tmin, tmax, ymin, ymax, step, labels, colors, types, axes, zoom, interval, chartOptions, class) %}
+  {% set uid = uid(page, id) %}
+  <div data-widget="chart.period"
+       id="{{ uid }}"
+       data-series="{{ implode(gads) }}"
+       data-item="{{ implode(gads) }}"
+       data-modes="{{ implode(modes|default('avg')) }}"
+       data-tmin="{{ tmin|default('1h') }}"
+       data-tmax="{{ tmax|default('now') }}"
+       data-interval="{{ interval|default(300) }}"
+       data-ymin="{{ ymin }}"
+       data-ymax="{{ ymax }}"
+       data-labels="{{ implode(labels) }}"
+       data-colors="{{ implode(colors) }}"
+       data-types="{{ implode(types|default('line')) }}"
+       data-axis="{{ implode(axes) }}"
+       data-zoom="{{ zoom|default(0) }}"
+       data-chartoptions="{{ chartOptions }}"
+       class="{{ class|default('chart') }}">
+  </div>
+
+  <script type="text/javascript">
+    $('#{{ uid }}').trigger('init');
+  </script>
+
+{% endmacro %}
+
+<!----------------------------------------------------->
+<!-- C O M F O R T C H A R T                         -->
+<!----------------------------------------------------->
+/**
+* The diagram showing curves of relative humidity and effective temperature superimposed upon rectangular coordinates. The comfort-zones indicate when humans feel good.
+*
+* @param unique id for this widget
+* @param a gad/item for the temperature
+* @param a gad/item for the humidity
+*/
+{% macro comfortchart(id, gad_temp, gad_humidity) %}
+
+  <div id="{{ uid(page, id) }}"
+       data-widget="chart.comfortchart"
+       data-item="{{ gad_temp }}, {{ gad_humidity }}"
+       data-label="{{ lang('plot.comfortchart', 'label') }}"
+       data-axis="{{ lang('plot.comfortchart', 'axis') }}"
+       class="chart">
+  </div>
+
+{% endmacro %}
+
+
+<!----------------------------------------------------->
+<!-- T E M P R O S E                                 -->
+<!----------------------------------------------------->
+/**
+* A complete house temperature chart. The rose shows all rooms with there actual and set temperature in one diagramm.
+*
+* @param unique id for this widget
+* @param a gad/item for the actual-temperature. More item/s in array form: [ item1 , item2 ]
+* @param a gad/item for the set-temperature. More item/s in array form: [ item1 , item2 ]
+* @param label/s for each axis
+*
+* @see misc/fundamentals#Array-Form
+*/
+{% macro temprose(id, gad_actual, gad_set, axis) %}
+
+  {% if once('highcharts-more') %}
+    <script src="vendor/plot.highcharts/highcharts-more.js"></script>
+  {% endif %}
+
+  <div id="{{ uid(page, id) }}"
+       data-widget="chart.temprose"
+       data-item="{{ implode(gad_actual) }}, {{ implode(gad_set) }}"
+       data-count="{{ gad_actual|length }}"
+       data-label="{{ lang('plot.rtr', 'label') }}"
+       data-axis="{{ implode(axis) }}"
+       class="chart">
+  </div>
+
+{% endmacro %}
+
+
+<!----------------------------------------------------->
+<!-- R T R                                           -->
+<!----------------------------------------------------->
+/**
+* A temperature-chart for use with an rtr. Plots actual and set temperature. If the state is given it will be shown as pie.
+*
+* @param unique id for this widget
+* @param series of a gad/item for the actual-temperature
+* @param series of a gad/item for the set-temperature
+* @param series of a gad/item for the state of the actor. It is shown as percental value within the pie. (> 0 is considered as 'on')
+*/
+{% macro rtr(id, gad_actual, gad_set, gad_state) %}
+
+  <div id="{{ uid(page, id) }}"
+       data-widget="chart.rtr"
+       data-series="{{ implode([gad_actual, gad_set]) }}"
+       data-item="{{ implode([gad_actual, gad_set, gad_state]) }}"
+       data-modes="avg"
+       data-step="50"
+       data-label="{{ lang('plot.rtr', 'label') }}"
+       data-axis="{{ lang('plot.rtr', 'axis') }}"
+       class="chart"></div>
+
+{% endmacro %}
+
