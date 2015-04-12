@@ -5,8 +5,9 @@ function deviceHmTc_setDelayed(uid, item, val) {
     obj = $('#' + uid);
     
     // check if there is still a timer
-    if (obj.prop("setDelayTimer")) {
+    if (obj.prop("setDelayTimer") != undefined ){
         clearTimeout(obj.prop("setDelayTimer"));
+        obj.removeProp("setDelayTimer");
     }
     
     // set timer to send the value delayed
