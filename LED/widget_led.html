@@ -1,0 +1,57 @@
+/**
+* LED - shows a LED with a color depending on the value of the gad
+* 
+* Parameters:
+* id:           unique id for this widget
+* gad:          a gad/item
+* red_value:    the value when the LED shall be red (optional)
+* green_value:  the value when the LED shall be green (optional)
+* blue_value:   the value when the LED shall be blue (optional)
+* yellow_value: the value when the LED shall be yellow (optional)
+*
+*/
+
+
+{% macro led(id, gad, red_value, green_value, blue_value, yellow_value) %}
+  {% if once('LED_Style') %}
+    <style>
+      .LED {
+        width: 10px;
+        height: 10px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border-radius: 25px;
+        background: #444444;
+      }
+      .LED-green {
+        background: #009000;
+      }
+      .LED-red {
+        background: #900000;
+      }
+      .LED-blue {
+        background: #000090;
+      }
+      .LED-yellow {
+        background: #EAFF00;
+      }
+    </style>
+  {% endif %}
+
+
+  <div class="LED"
+       id="{{ uid(page, id) }}" 
+       data-widget="widget_led.led" 
+       data-item="{{ gad }}" 
+       data-red-value="{{ red_value }}"
+       data-green-value="{{ green_value }}" 
+       data-blue-value="{{ blue_value }}"
+       data-yellow-value="{{ yellow_value }}"
+      >
+  </div>
+
+
+{% endmacro %}
+
+
+  
