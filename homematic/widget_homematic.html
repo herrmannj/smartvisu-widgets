@@ -94,11 +94,11 @@
 * @param step for plus/minus buttons (optional, default 0.5)
 * @param show_auto_man flag to show/hide control for auto / manual
 */
-{% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity, show_auto_man) %}
+{% macro hmtc(id, txt, gad_actual, gad_set, gad_controlmode, gad_daytemp, gad_nighttemp, gad_window, gad_battery, gad_state, gad_txt, step, gad_valve, gad_humidity, show_auto_man, min_temp, max_temp) %}
 	{% import "basic.html" as basic %}
 	{% import "icon.html" as icon %}
 	<div id="{{ uid(page, id) }}" data-widget="device.hmtc" data-step="{{ step|default(0.5) }}"
-		class="rtr">
+		class="rtr" min_temp="{{ min_temp | default(5.0) }}" max_temp="{{ max_temp | default(30.0) }}">
 		<div class="actual">
 			<div class="temp">
 			{{ basic.symbol(id~'windowopen', gad_window, '', icon1~'fts_window_2w_open.png','open') }} 
