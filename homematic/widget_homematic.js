@@ -5,8 +5,9 @@ function deviceHmTc_setDelayed(uid, item, val) {
     obj = $('#' + uid);
     
     // check if there is still a timer
-    if (obj.prop("setDelayTimer")) {
+    if (obj.prop("setDelayTimer") != undefined ){
         clearTimeout(obj.prop("setDelayTimer"));
+        obj.removeProp("setDelayTimer");
     }
     
     // set timer to send the value delayed
@@ -24,6 +25,7 @@ $(document).delegate('div[data-widget="device.hmtc"] > div > a[data-icon="minus"
         var item = $('#' + uid + 'set').attr('data-item');
 
         var temp = (Math.round((widget.get(item) - step) * 10) / 10).toFixed(1);
+        temp = Math.max($('#' + uid).attr('min_temp'), temp);
         deviceHmTc_setDelayed(uid, item, temp);
     }
 });
@@ -35,6 +37,7 @@ $(document).delegate('div[data-widget="device.hmtc"] > div > a[data-icon="plus"]
         var item = $('#' + uid + 'set').attr('data-item');
 
         var temp = (Math.round((widget.get(item) * 1 + step * 1) * 10) / 10).toFixed(1);
+        temp = Math.min($('#' + uid).attr('max_temp'), temp);
         deviceHmTc_setDelayed(uid, item, temp);
     }
 });
